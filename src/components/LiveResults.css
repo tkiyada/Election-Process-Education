@@ -1,0 +1,122 @@
+.live-results-container {
+  border: 2px solid #ef4444; /* red border for urgency */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 241, 242, 0.8) 100%);
+  margin-bottom: 2rem;
+}
+
+.live-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.state-badge {
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pulse-icon.red {
+  animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.total-declared {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.7);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+}
+
+.total-declared strong {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.sim-warning {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.progress-bars-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.party-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.party-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.party-score {
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.progress-track {
+  height: 12px;
+  background-color: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.majority-marker {
+  position: absolute;
+  top: 0;
+  left: 50%; /* 145 is barely half of 288 */
+  width: 2px;
+  height: 100%;
+  background-color: #94a3b8;
+  z-index: 10;
+}
+
+/* Animations added to control-group to look smooth on appearance */
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

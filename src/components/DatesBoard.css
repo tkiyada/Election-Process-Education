@@ -1,0 +1,91 @@
+.dates-board {
+  height: 100%;
+}
+
+.dates-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.dates-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.dates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.date-card {
+  display: flex;
+  align-items: stretch;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.date-card:hover {
+  transform: translateX(4px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.date-status-indicator {
+  width: 6px;
+  background-color: var(--navy);
+}
+
+.date-card.past .date-status-indicator {
+  background-color: #cbd5e1;
+}
+
+.date-card.upcoming .date-status-indicator {
+  background-color: var(--saffron);
+}
+
+.date-card.live .date-status-indicator {
+  background-color: #ef4444; /* red for live */
+  animation: pulse-border 1.5s infinite;
+}
+
+@keyframes pulse-border {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.date-info {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.date-text {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.date-card.past .date-text {
+  color: var(--text-secondary);
+}
+
+.date-card.upcoming .date-text {
+  color: var(--saffron);
+}
+
+.date-card.live .date-text {
+  color: #ef4444;
+  font-weight: 800;
+}
+
+.event-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
