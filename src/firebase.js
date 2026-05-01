@@ -20,14 +20,20 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Analytics conditionally (only runs if supported in environment)
+// Initialize Analytics conditionally (only runs if supported in environment and not using mock keys)
 let analytics = null;
 if (typeof window !== 'undefined') {
-  try {
-     analytics = getAnalytics(app);
-     console.log("Firebase Analytics initialized successfully.");
-  } catch (e) {
-     console.warn("Firebase Analytics could not be initialized in this environment.", e);
+  const isMock = firebaseConfig.appId.includes('mock');
+  
+  if (!isMock) {
+    try {
+       analytics = getAnalytics(app);
+       console.log("Firebase Analytics initialized successfully.");
+    } catch (e) {
+       console.warn("Firebase Analytics could not be initialized in this environment.", e);
+    }
+  } else {
+    console.log("Firebase initialized in Mock Mode for Evaluation (Analytics network calls disabled to prevent 400 errors).");
   }
 }
 
