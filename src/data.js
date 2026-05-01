@@ -1,13 +1,9 @@
-// Supported languages mapping
-export const languages = {
-  en: "English",
-  hi: "हिंदी (Hindi)",
-  bn: "বাংলা (Bengali)",
-  mr: "मराठी (Marathi)",
-  ta: "தமிழ் (Tamil)"
-};
+/**
+ * Core data management file for the Election Process Education application.
+ * Contains translation dictionaries, timeline definitions, and dynamic getter functions.
+ * @module data
+ */
 
-// Supported election types mapping
 export const electionTypes = {
   lokSabha: "Lok Sabha (National)",
   stateAssembly: "State Assembly",
@@ -22,13 +18,14 @@ export const statesList = {
   UP: "Uttar Pradesh"
 };
 
-// UI Localization dictionary
+/**
+ * UI Localization dictionary
+ * @type {Object.<string, Object.<string, string>>}
+ */
 export const uiStrings = {
   en: {
     appTitle: "Indian Election Process Explorer",
-    appSubtitle: "Interactive guide to understanding the world's largest democratic process",
-    timelineTitle: "Election Process Timeline",
-    timelineDesc: "Follow the chronological phases of the electoral process.",
+    appSubtitle: "Understand how the world's largest democracy votes",
     faqTitle: "Voter Assistant",
     faqDesc: "Common questions about the election process.",
     datesTitle: "Important Dates",
@@ -41,9 +38,7 @@ export const uiStrings = {
   },
   hi: {
     appTitle: "भारतीय चुनाव प्रक्रिया एक्सप्लोरर",
-    appSubtitle: "दुनिया की सबसे बड़ी लोकतांत्रिक प्रक्रिया को समझने के लिए इंटरैक्टिव गाइड",
-    timelineTitle: "चुनाव प्रक्रिया समयरेखा",
-    timelineDesc: "चुनावी प्रक्रिया के कालानुक्रमिक चरणों का पालन करें।",
+    appSubtitle: "समझें कि दुनिया का सबसे बड़ा लोकतंत्र कैसे मतदान करता है",
     faqTitle: "मतदाता सहायक",
     faqDesc: "चुनाव प्रक्रिया के बारे में सामान्य प्रश्न।",
     datesTitle: "महत्वपूर्ण तिथियाँ",
@@ -53,173 +48,208 @@ export const uiStrings = {
     btnPrev: "पिछला",
     btnNext: "अगला",
     of: "का"
-  },
-  // Placeholders for other languages (falling back to English for now to save space, but scalable)
-  bn: {
-    appTitle: "ভারতীয় নির্বাচন প্রক্রিয়া এক্সপ্লোরার",
-    appSubtitle: "বিশ্বের বৃহত্তম গণতান্ত্রিক প্রক্রিয়া বোঝার জন্য ইন্টারেক্টিভ গাইড",
-    timelineTitle: "নির্বাচন প্রক্রিয়ার টাইমলাইন",
-    timelineDesc: "নির্বাচনী প্রক্রিয়ার কালানুক্রমিক ধাপগুলি অনুসরণ করুন।",
-    faqTitle: "ভোটার সহকারী",
-    faqDesc: "নির্বাচন প্রক্রিয়া সম্পর্কে সাধারণ প্রশ্ন।",
-    datesTitle: "গুরুত্বপূর্ণ তারিখ",
-    btnPrev: "পূর্ববর্তী",
-    btnNext: "পরবর্তী",
-    of: "এর"
-  },
-  mr: {
-    appTitle: "भारतीय निवडणूक प्रक्रिया एक्सप्लोरर",
-    appSubtitle: "जगातील सर्वात मोठी लोकशाही प्रक्रिया समजून घेण्यासाठी संवादात्मक मार्गदर्शक",
-    timelineTitle: "निवडणूक प्रक्रिया टाइमलाइन",
-    timelineDesc: "निवडणूक प्रक्रियेच्या कालक्रमानुसार टप्प्यांचे अनुसरण करा.",
-    faqTitle: "मतदार सहाय्यक",
-    faqDesc: "निवडणूक प्रक्रियेबद्दल सामान्य प्रश्न.",
-    datesTitle: "महत्वाच्या तारखा",
-    btnPrev: "मागे",
-    btnNext: "पुढे",
-    of: "पैकी"
-  },
-  ta: {
-    appTitle: "இந்திய தேர்தல் செயல்முறை எக்ஸ்ப்ளோரர்",
-    appSubtitle: "உலகின் மிகப்பெரிய ஜனநாயக செயல்முறையை புரிந்து கொள்வதற்கான ஊடாடும் வழிகாட்டி",
-    timelineTitle: "தேர்தல் செயல்முறை காலவரிசை",
-    timelineDesc: "தேர்தல் செயல்முறையின் காலவரிசை கட்டங்களைப் பின்பற்றவும்.",
-    faqTitle: "வாக்காளர் உதவியாளர்",
-    faqDesc: "தேர்தல் செயல்முறை பற்றிய பொதுவான கேள்விகள்.",
-    datesTitle: "முக்கியமான தேதிகள்",
-    btnPrev: "முந்தைய",
-    btnNext: "அடுத்தது",
-    of: "இல்"
   }
 };
 
-// Generic icon mapping to keep things DRY
-const stepConfig = [
-  { id: 1, icon: "ClipboardEdit", color: "var(--navy)", bgColor: "var(--navy-light)" },
-  { id: 2, icon: "CalendarDays", color: "var(--saffron)", bgColor: "var(--saffron-light)" },
-  { id: 3, icon: "FileSpreadsheet", color: "var(--green)", bgColor: "var(--green-light)" },
-  { id: 4, icon: "Search", color: "var(--navy)", bgColor: "var(--navy-light)" },
-  { id: 5, icon: "Megaphone", color: "var(--saffron)", bgColor: "var(--saffron-light)" },
-  { id: 6, icon: "VolumeX", color: "var(--text-secondary)", bgColor: "#f3f4f6" },
-  { id: 7, icon: "Vote", color: "var(--navy)", bgColor: "var(--navy-light)" },
-  { id: 8, icon: "BarChart3", color: "var(--green)", bgColor: "var(--green-light)" }
-];
+export const languages = {
+  en: "English",
+  hi: "हिन्दी",
+  bn: "বাংলা",
+  mr: "मराठी",
+  ta: "தமிழ்"
+};
 
-// Content structured by [electionType][language]
+/**
+ * Election content dictionary containing timelines and FAQs segmented by type and language.
+ */
 export const electionData = {
   lokSabha: {
     en: {
       timeline: [
-        { ...stepConfig[0], title: "Electoral Roll Update", shortTitle: "Registration", description: "The Election Commission of India (ECI) updates the national voter list." },
-        { ...stepConfig[1], title: "Schedule Announcement", shortTitle: "Schedule", description: "The ECI announces polling dates. MCC comes into effect national wide." },
-        { ...stepConfig[2], title: "Filing Nominations", shortTitle: "Nomination", description: "MP Candidates submit nomination papers indicating their constituencies." },
-        { ...stepConfig[3], title: "Scrutiny", shortTitle: "Scrutiny", description: "Returning officers examine nominations for Lok Sabha candidates." },
-        { ...stepConfig[4], title: "Election Campaign", shortTitle: "Campaign", description: "Parties campaign to form the central government." },
-        { ...stepConfig[5], title: "Silence Period", shortTitle: "Silence", description: "Campaigning stops 48 hours before polling." },
-        { ...stepConfig[6], title: "Polling Day", shortTitle: "Polling", description: "Voting for Members of Parliament (MPs) across the country." },
-        { ...stepConfig[7], title: "Results", shortTitle: "Results", description: "Votes are counted and ECI declares the national results." }
+        {
+          id: 1,
+          title: "Voter Roll Update",
+          description: "The Election Commission of India (ECI) updates the electoral rolls. Citizens check their names and apply for new Voter ID cards.",
+          icon: "users"
+        },
+        {
+          id: 2,
+          title: "Election Schedule Announcement",
+          description: "The ECI announces the poll dates. The Model Code of Conduct (MCC) comes into effect immediately.",
+          icon: "calendar"
+        },
+        {
+          id: 3,
+          title: "Filing of Nominations",
+          description: "Candidates file their nomination papers with the Returning Officer. Scrutiny of nominations follows.",
+          icon: "file-text"
+        },
+        {
+          id: 4,
+          title: "Campaigning",
+          description: "Political parties and candidates hold rallies, distribute manifestos, and canvass for votes. Ends 48 hours before polling.",
+          icon: "megaphone"
+        },
+        {
+          id: 5,
+          title: "Polling Day(s)",
+          description: "Voters cast their votes using Electronic Voting Machines (EVMs) and VVPATs. Lok Sabha elections are usually held in multiple phases.",
+          icon: "check-square"
+        },
+        {
+          id: 6,
+          title: "Counting & Results",
+          description: "EVMs are opened and votes are counted in the presence of candidates. The candidate with the highest votes in a constituency wins.",
+          icon: "bar-chart"
+        }
       ],
       faqs: [
-        { id: 1, question: "Who runs the Lok Sabha elections?", answer: "The Election Commission of India (ECI) is constitutionally mandated to conduct general elections." },
-        { id: 2, question: "How many members are elected to the Lok Sabha?", answer: "Currently, 543 members are elected from individual constituencies." }
+         { id: 1, question: "Who is eligible to vote?", answer: "Any Indian citizen who is 18 years of age or older as of the qualifying date (usually Jan 1 of the year) can vote, provided their name is on the electoral roll." },
+         { id: 2, question: "What is an EVM?", answer: "An Electronic Voting Machine (EVM) is used to record votes electronically, replacing paper ballots. It is standalone and not connected to any network." },
+         { id: 3, question: "What is the Model Code of Conduct?", answer: "The MCC is a set of guidelines issued by the ECI to regulate political parties and candidates prior to elections, ensuring free and fair polling." },
+         { id: 4, question: "What is VVPAT?", answer: "Voter Verifiable Paper Audit Trail (VVPAT) allows voters to verify that their vote was cast correctly. It prints a slip with the candidate's name and symbol." }
       ]
     },
     hi: {
-       timeline: [
-        { ...stepConfig[0], title: "मतदाता सूची अपडेट", shortTitle: "पंजीकरण", description: "भारत निर्वाचन आयोग (ECI) राष्ट्रीय मतदाता सूची को अपडेट करता है।" },
-        { ...stepConfig[1], title: "अनुसूची की घोषणा", shortTitle: "अनुसूची", description: "ECI मतदान की तारीखों की घोषणा करता है। एमसीसी लागू होता है।" },
-        { ...stepConfig[2], title: "नामांकन दाखिल करना", shortTitle: "नामांकन", description: "सांसद उम्मीदवार अपने नामांकन पत्र जमा करते हैं।" },
-        { ...stepConfig[3], title: "जांच", shortTitle: "जांच", description: "रिटर्निंग ऑफिसर लोकसभा उम्मीदवारों के नामांकन की जांच करते हैं।" },
-        { ...stepConfig[4], title: "चुनाव अभियान", shortTitle: "अभियान", description: "पार्टियां केंद्र सरकार बनाने के लिए प्रचार करती हैं।" },
-        { ...stepConfig[5], title: "मौन अवधि", shortTitle: "मौन", description: "मतदान से 48 घंटे पहले प्रचार बंद हो जाता है।" },
-        { ...stepConfig[6], title: "मतदान का दिन", shortTitle: "मतदान", description: "पूरे देश में संसद सदस्यों (सांसदों) के लिए मतदान।" },
-        { ...stepConfig[7], title: "परिणाम", shortTitle: "परिणाम", description: "वोट गिने जाते हैं और ECI राष्ट्रीय परिणाम घोषित करता है।" }
+      timeline: [
+        {
+           id: 1,
+           title: "मतदाता सूची अपडेट",
+           description: "भारत निर्वाचन आयोग (ECI) मतदाता सूची को अपडेट करता है। नागरिक अपने नाम जांचते हैं और नए वोटर आईडी कार्ड के लिए आवेदन करते हैं।",
+           icon: "users"
+        },
+        {
+           id: 2,
+           title: "चुनाव कार्यक्रम की घोषणा",
+           description: "ECI चुनाव की तारीखों की घोषणा करता है। आदर्श आचार संहिता (MCC) तुरंत प्रभाव में आ जाती है।",
+           icon: "calendar"
+        },
+        {
+           id: 3,
+           title: "नामांकन दाखिल करना",
+           description: "उम्मीदवार रिटर्निंग ऑफिसर के पास अपना नामांकन पत्र दाखिल करते हैं। इसके बाद नामांकनों की जांच होती है।",
+           icon: "file-text"
+        },
+        {
+           id: 4,
+           title: "चुनाव प्रचार",
+           description: "राजनीतिक दल और उम्मीदवार रैलियां करते हैं, घोषणापत्र बांटते हैं और वोट मांगते हैं। मतदान से 48 घंटे पहले समाप्त होता है।",
+           icon: "megaphone"
+        },
+        {
+           id: 5,
+           title: "मतदान का दिन",
+           description: "मतदाता इलेक्ट्रॉनिक वोटिंग मशीन (EVM) और VVPAT का उपयोग करके अपना वोट डालते हैं। लोकसभा चुनाव आमतौर पर कई चरणों में होते हैं।",
+           icon: "check-square"
+        },
+        {
+           id: 6,
+           title: "मतगणना और परिणाम",
+           description: "EVM खोले जाते हैं और उम्मीदवारों की उपस्थिति में वोटों की गिनती की जाती है। सबसे अधिक वोट पाने वाला उम्मीदवार जीतता है।",
+           icon: "bar-chart"
+        }
       ],
       faqs: [
-        { id: 1, question: "लोकसभा चुनाव कौन करवाता है?", answer: "भारत निर्वाचन आयोग (ईसीआई) को आम चुनाव कराने का संवैधानिक जनादेश है।" },
-        { id: 2, question: "लोकसभा के लिए कितने सदस्य चुने जाते हैं?", answer: "वर्तमान में, 543 सदस्य अलग-अलग निर्वाचन क्षेत्रों से चुने जाते हैं।" }
+         { id: 1, question: "मतदान करने के लिए कौन पात्र है?", answer: "कोई भी भारतीय नागरिक जो योग्यता तिथि (आमतौर पर वर्ष का 1 जनवरी) को 18 वर्ष या उससे अधिक आयु का है, वह मतदान कर सकता है, बशर्ते उसका नाम मतदाता सूची में हो।" },
+         { id: 2, question: "EVM क्या है?", answer: "इलेक्ट्रॉनिक वोटिंग मशीन (EVM) का उपयोग इलेक्ट्रॉनिक रूप से वोटों को रिकॉर्ड करने के लिए किया जाता है, जो पेपर बैलेट की जगह लेता है। यह स्टैंडअलोन है और किसी नेटवर्क से जुड़ा नहीं है।" },
+         { id: 3, question: "आदर्श आचार संहिता क्या है?", answer: "आदर्श आचार संहिता ECI द्वारा जारी दिशा-निर्देशों का एक सेट है, जो चुनाव से पहले राजनीतिक दलों और उम्मीदवारों को विनियमित करता है, जिससे स्वतंत्र और निष्पक्ष मतदान सुनिश्चित होता है।" },
+         { id: 4, question: "VVPAT क्या है?", answer: "वोटर वेरीफिएबल पेपर ऑडिट ट्रेल (VVPAT) मतदाताओं को यह सत्यापित करने की अनुमति देता है कि उनका वोट सही तरीके से डाला गया था। यह उम्मीदवार के नाम और चुनाव चिह्न के साथ एक पर्ची प्रिंट करता है।" }
       ]
     }
   },
   stateAssembly: {
     en: {
       timeline: [
-        { ...stepConfig[0], title: "State Roll Update", shortTitle: "Registration", description: "The electoral roll for the specific state assembly is updated." },
-        { ...stepConfig[1], title: "State Schedule", shortTitle: "Schedule", description: "ECI announces polling dates for the state. MCC is applied at the state level." },
-        { ...stepConfig[2], title: "Filing Nominations", shortTitle: "Nomination", description: "MLA Candidates submit nomination papers for state constituencies." },
-        { ...stepConfig[3], title: "Scrutiny", shortTitle: "Scrutiny", description: "Returning officers examine nominations for Vidhan Sabha candidates." },
-        { ...stepConfig[4], title: "State Campaign", shortTitle: "Campaign", description: "Parties campaign to form the state government." },
-        { ...stepConfig[5], title: "Silence Period", shortTitle: "Silence", description: "State-wide campaigning stops 48 hours before polling." },
-        { ...stepConfig[6], title: "Polling Day", shortTitle: "Polling", description: "Voting for Members of Legislative Assembly (MLAs)." },
-        { ...stepConfig[7], title: "Results", shortTitle: "Results", description: "Votes are counted to determine the state government." }
+        {
+          id: 1,
+          title: "State Roll Validation",
+          description: "The State Election Commission reviews demographic changes.",
+          icon: "users"
+        },
+        {
+          id: 2,
+          title: "Single/Multi-Phase Declaration",
+          description: "Depending on state size and security requirements, phases are declared.",
+          icon: "calendar"
+        },
+        {
+          id: 3,
+          title: "State Specific Polling",
+          description: "Voters elect Members of Legislative Assembly (MLAs).",
+          icon: "check-square"
+        }
       ],
       faqs: [
-        { id: 1, question: "Who governs State Assembly elections?", answer: "While it is for the state government, the Election Commission of India (ECI) still conducts Vidhan Sabha elections." },
-        { id: 2, question: "Who am I voting for in a State Election?", answer: "You are voting for a Member of Legislative Assembly (MLA) to represent your constituency in the Vidhan Sabha." }
+        { id: 1, question: "Who do I vote for in State Elections?", answer: "You vote for Members of Legislative Assembly (MLAs) who form the state government." }
       ]
     },
     hi: {
-       timeline: [
-        { ...stepConfig[0], title: "राज्य मतदाता सूची अपडेट", shortTitle: "पंजीकरण", description: "विशिष्ट राज्य विधानसभा के लिए मतदाता सूची अपडेट की जाती है।" },
-        { ...stepConfig[1], title: "राज्य अनुसूची", shortTitle: "अनुसूची", description: "ECI राज्य के लिए मतदान की तारीखों की घोषणा करता है। एमसीसी राज्य स्तर पर लागू होता है।" },
-        { ...stepConfig[2], title: "नामांकन", shortTitle: "नामांकन", description: "विधायक उम्मीदवार राज्य निर्वाचन क्षेत्रों के लिए नामांकन पत्र जमा करते हैं।" },
-        { ...stepConfig[3], title: "जांच", shortTitle: "जांच", description: "रिटर्निंग ऑफिसर विधानसभा उम्मीदवारों के नामांकन की जांच करते हैं।" },
-        { ...stepConfig[4], title: "राज्य अभियान", shortTitle: "अभियान", description: "पार्टियां राज्य सरकार बनाने के लिए प्रचार करती हैं।" },
-        { ...stepConfig[5], title: "मौन अवधि", shortTitle: "मौन", description: "मतदान से 48 घंटे पहले राज्यव्यापी प्रचार बंद हो जाता है।" },
-        { ...stepConfig[6], title: "मतदान का दिन", shortTitle: "मतदान", description: "विधान सभा सदस्यों (विधायकों) के लिए मतदान।" },
-        { ...stepConfig[7], title: "परिणाम", shortTitle: "परिणाम", description: "राज्य सरकार का निर्धारण करने के लिए वोट गिने जाते हैं।" }
+      timeline: [
+        {
+           id: 1,
+           title: "राज्य सूची सत्यापन",
+           description: "राज्य चुनाव आयोग जनसांख्यिकीय परिवर्तनों की समीक्षा करता है।",
+           icon: "users"
+        },
+        {
+           id: 2,
+           title: "एकल/बहु-चरण घोषणा",
+           description: "राज्य के आकार और सुरक्षा आवश्यकताओं के आधार पर, चरणों की घोषणा की जाती है।",
+           icon: "calendar"
+        },
+        {
+           id: 3,
+           title: "राज्य विशिष्ट मतदान",
+           description: "मतदाता विधानसभा सदस्यों (विधायकों) का चुनाव करते हैं।",
+           icon: "check-square"
+        }
       ],
       faqs: [
-        { id: 1, question: "राज्य विधानसभा चुनाव कौन करवाता है?", answer: "हालांकि यह राज्य सरकार के लिए है, भारत निर्वाचन आयोग (ECI) ही विधानसभा चुनाव कराता है।" },
-        { id: 2, question: "राज्य चुनाव में मैं किसे वोट दे रहा हूं?", answer: "आप विधान सभा में अपने निर्वाचन क्षेत्र का प्रतिनिधित्व करने के लिए विधान सभा सदस्य (विधायक) को वोट दे रहे हैं।" }
+        { id: 1, question: "राज्य चुनाव में मैं किसे वोट देता हूँ?", answer: "आप विधानसभा सदस्यों (विधायकों) के लिए वोट करते हैं जो राज्य सरकार बनाते हैं।" }
       ]
     }
   },
   localBody: {
     en: {
       timeline: [
-        { ...stepConfig[0], title: "Ward List Update", shortTitle: "Registration", description: "State Election Commissions (SEC) prepare roll for panchayats/municipalities." },
-        { ...stepConfig[1], title: "Local Schedule", shortTitle: "Schedule", description: "SEC announces the election schedule for local bodies." },
-        { ...stepConfig[2], title: "Filing Nominations", shortTitle: "Nomination", description: "Candidates for sarpanch, ward members or corporators file papers." },
-        { ...stepConfig[3], title: "Scrutiny", shortTitle: "Scrutiny", description: "Nominations for local representatives are verified." },
-        { ...stepConfig[4], title: "Local Campaign", shortTitle: "Campaign", description: "Grassroots campaigning occurs mostly door-to-door in local wards." },
-        { ...stepConfig[5], title: "Silence Period", shortTitle: "Silence", description: "Campaign stops 48 hours prior." },
-        { ...stepConfig[6], title: "Polling Day", shortTitle: "Polling", description: "Voting happens often using ballot papers or dedicated EVMs." },
-        { ...stepConfig[7], title: "Results", shortTitle: "Results", description: "Counting is usually done quickly for local wards." }
+        {
+          id: 1,
+          title: "Ward Delimitation",
+          description: "Redrawing of ward boundaries based on recent census.",
+          icon: "users"
+        },
+        {
+          id: 2,
+          title: "Local Polling",
+          description: "Voting for Sarpanch, Corporators, or Ward Members.",
+          icon: "check-square"
+        }
       ],
       faqs: [
-        { id: 1, question: "Does the ECI run Panchayat Elections?", answer: "No. Local body elections (Panchayats and Municipalities) are conducted by separate State Election Commissions (SECs)." },
-        { id: 2, question: "How is voting different for local bodies?", answer: "Unlike Lok Sabha, local elections sometimes still use traditional ballot boxes/papers in certain states, though EVMs are heavily utilized now." }
+        { id: 1, question: "Are EVMs used in local elections?", answer: "It depends on the state. Some use EVMs, while others still use traditional paper ballots." }
       ]
     },
     hi: {
        timeline: [
-        { ...stepConfig[0], title: "वार्ड सूची अपडेट", shortTitle: "पंजीकरण", description: "राज्य चुनाव आयोग (SEC) पंचायतों/नगरपालिकाओं के लिए सूची तैयार करते हैं।" },
-        { ...stepConfig[1], title: "स्थानीय अनुसूची", shortTitle: "अनुसूची", description: "एसईसी स्थानीय निकायों के लिए चुनाव कार्यक्रम की घोषणा करता है।" },
-        { ...stepConfig[2], title: "नामांकन", shortTitle: "नामांकन", description: "सरपंच, वार्ड सदस्य या पार्षद पद के उम्मीदवार पर्चे दाखिल करते हैं।" },
-        { ...stepConfig[3], title: "जांच", shortTitle: "जांच", description: "स्थानीय प्रतिनिधियों के नामांकन की जांच की जाती है।" },
-        { ...stepConfig[4], title: "स्थानीय अभियान", shortTitle: "अभियान", description: "स्थानीय वार्डों में मुख्य रूप से घर-घर जाकर जमीनी स्तर पर प्रचार होता है।" },
-        { ...stepConfig[5], title: "मौन अवधि", shortTitle: "मौन", description: "मतदान से 48 घंटे पहले प्रचार बंद।" },
-        { ...stepConfig[6], title: "मतदान का दिन", shortTitle: "मतदान", description: "मतदान अक्सर मतपत्रों या समर्पित ईवीएम का उपयोग करके होता है।" },
-        { ...stepConfig[7], title: "परिणाम", shortTitle: "परिणाम", description: "स्थानीय वार्डों के लिए मतगणना आमतौर पर जल्दी हो जाती है।" }
-      ],
+         {
+           id: 1,
+           title: "वार्ड परिसीमन",
+           description: "हाल की जनगणना के आधार पर वार्ड सीमाओं का पुनर्निर्धारण।",
+           icon: "users"
+         },
+         {
+           id: 2,
+           title: "स्थानीय मतदान",
+           description: "सरपंच, पार्षदों या वार्ड सदस्यों के लिए मतदान।",
+           icon: "check-square"
+         }
+       ],
        faqs: [
-        { id: 1, question: "क्या ECI पंचायत चुनाव कराता है?", answer: "नहीं। स्थानीय निकाय चुनाव (पंचायतें और नगर पालिकाएं) अलग-अलग राज्य चुनाव आयोगों (एसईसी) द्वारा कराए जाते हैं।" },
-        { id: 2, question: "स्थानीय निकायों के लिए मतदान कैसे अलग है?", answer: "लोकसभा के विपरीत, कुछ राज्यों में स्थानीय चुनाव अभी भी कभी-कभी पारंपरिक मतपेटियों/मतपत्रों का उपयोग करते हैं, हालांकि अब ईवीएम का भारी उपयोग किया जाता है।" }
-      ]
+         { id: 1, question: "क्या स्थानीय चुनावों में EVM का उपयोग किया जाता है?", answer: "यह राज्य पर निर्भर करता है। कुछ EVM का उपयोग करते हैं, जबकि अन्य अभी भी पारंपरिक पेपर बैलेट का उपयोग करते हैं।" }
+       ]
     }
   }
 };
-
-// Fallback logic for unsupported languages in mock data
-export const getElectionData = (type, lang) => {
-  if (electionData[type] && electionData[type][lang]) {
-    return electionData[type][lang];
-  }
-  // Default to English if specific translation is missing
-  return electionData[type]["en"];
-};
-
 
 export const importantDatesData = {
    lokSabha: [
@@ -249,6 +279,24 @@ export const importantDatesData = {
   ]
 };
 
+/**
+ * Retrieves timeline and FAQ data based on selected election type and language.
+ * Provides fallback to English if language is not supported.
+ * @param {string} type - The election type (lokSabha, stateAssembly, localBody)
+ * @param {string} lang - The requested language code (en, hi, etc.)
+ * @returns {Object} Data object containing timeline array and faqs array
+ */
+export const getElectionData = (type, lang) => {
+  const typeData = electionData[type] || electionData["lokSabha"];
+  return typeData[lang] || typeData["en"];
+};
+
+/**
+ * Retrieves important dates. Supports hierarchical state-level selection for stateAssembly.
+ * @param {string} type - The election type
+ * @param {string} [stateCode='general'] - The two-letter state code if stateAssembly is selected
+ * @returns {Array} Array of date objects
+ */
 export const getImportantDates = (type, stateCode = 'general') => {
   if (type === 'stateAssembly') {
     return importantDatesData.stateAssembly[stateCode] || importantDatesData.stateAssembly['general'];
@@ -256,9 +304,13 @@ export const getImportantDates = (type, stateCode = 'general') => {
   return importantDatesData[type] || importantDatesData["lokSabha"];
 };
 
-// Check if a specific election type/state is currently in Live counting mode based on Dates
+/**
+ * Checks if a specific election type/state is currently in Live counting mode based on Dates array.
+ * @param {string} type - The election type
+ * @param {string} stateCode - The state code
+ * @returns {boolean} True if any associated date event has status 'live'
+ */
 export const checkIsLive = (type, stateCode) => {
    const dates = getImportantDates(type, stateCode);
    return dates.some(d => d.status === 'live');
 };
-

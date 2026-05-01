@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import * as Icons from 'lucide-react';
 import './Timeline.css';
 
-export default function Timeline({ steps, t }) {
+const Timeline = memo(function Timeline({ steps, t }) {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
@@ -77,4 +77,6 @@ export default function Timeline({ steps, t }) {
       </div>
     </div>
   );
-}
+});
+
+export default Timeline;

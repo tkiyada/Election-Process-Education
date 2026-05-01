@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { MessageSquare, HelpCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import './FAQ.css';
 
-export default function FAQ({ faqs, t }) {
+const FAQ = memo(function FAQ({ faqs, t }) {
   const [openId, setOpenId] = useState(null);
 
   const toggleFaq = (id) => {
@@ -74,4 +74,6 @@ export default function FAQ({ faqs, t }) {
       </div>
     </div>
   );
-}
+});
+
+export default FAQ;
